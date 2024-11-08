@@ -1,0 +1,17 @@
+# Use the latest Fedora image
+FROM fedora:latest
+
+# Upgrade the system
+RUN dnf upgrade -y
+
+# Install the required applications
+RUN dnf install -y tuxpaint vim httpd
+
+# Add the myinfo.html file to the appropriate location
+COPY myinfo.html /var/www/html/
+
+# Expose port 80 for HTTP access
+EXPOSE 80
+
+# Enable and start the httpd service
+ENTRYPOINT ["/usr/sbin/httpd", "-DFOREGROUND"]
